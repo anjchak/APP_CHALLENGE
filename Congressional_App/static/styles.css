@@ -70,9 +70,8 @@ h4{
 }
 
 .secondary_bg {
-    min-height: 100%;
+    height: 1080px;
     background-image: linear-gradient(to bottom right, violet, tan, rgb(66, 127, 67));
     /* Issue where bg doesn't fit the whole screen. Don't know why */
-    /* background-repeat: no-repeat; */
-    
+    background-repeat: no-repeat;
 }
