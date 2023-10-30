@@ -1,6 +1,7 @@
 /* for your CSS */
 body {
     background-image: url('food.jpg');
+    background-position: center center;
   }
 .SearchBar{
     height: 50px;
@@ -65,4 +66,13 @@ h4{
     margin: auto;
     border-radius: 20% 40px 20% 40px;
     border: solid #228B22 10px;
+    
+}
+
+.secondary_bg {
+    min-height: 100%;
+    background-image: linear-gradient(to bottom right, violet, tan, rgb(66, 127, 67));
+    /* Issue where bg doesn't fit the whole screen. Don't know why */
+    /* background-repeat: no-repeat; */
+    
 }

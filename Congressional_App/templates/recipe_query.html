@@ -2,13 +2,12 @@
 
 {% block title %}
     Find Recipes
-
 {% endblock %}
 
 {% block main %}
-    <h1>Search</h1>
-        <form name = "recipe search" action= "/recipe_query" method = "POST" onsubmit="return validateForm()">
-
+    <body class = 'secondary_bg'>
+        <h1>Search</h1>
+        <form name = "recipe search" action = "/recipe_query" method = "POST" onsubmit="return validateForm()">
 
             <input autocomplete="off" autofocus name="query" placeholder = "What food do you want?" type="text" class = "SearchBar">
             <select name="selectDiet" multiplesize="12"> <!-- note the name -->
@@ -43,7 +42,5 @@
             <input autocomplete="off" autofocus name="results" placeholder = "How many results would you like?" type="text" class = "SearchBar">
                 <button type = "submit">Search</button>
         </form>
-
-
-
+    </body>
 {% endblock %}
