@@ -34,6 +34,10 @@ def find_recipes(query, diet, intolerances, number):
         return request.json()
     return "mega fail"
 
+def return_image(id):
+    spoonacular_key = "97c986fad9454d9198188fa867964a6f"
+    return f"https://api.spoonacular.com/recipes/{id}/nutritionLabel.png?apiKey={spoonacular_key}"
+
 @app.route("/recipe_query", methods=["GET", "POST"])
 def recipe_query():
         if(request.method == "GET"):
@@ -44,9 +48,9 @@ def recipe_query():
             intolerance = request.form.get("selectIntolerance")
             number = request.form.get("results")
             recipe_data = find_recipes(query, diet, intolerance, number)
+            for recipe in recipe_data['results']:
+                recipe.update({'nutrition': return_image(recipe['id'])})
             return render_template("recipes.html", recipes = recipe_data['results'])
-
-
 
 #LOCATION CODE
 def create_map(locationx, locationy, location, stores):

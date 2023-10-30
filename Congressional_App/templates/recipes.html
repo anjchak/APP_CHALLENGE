@@ -11,6 +11,7 @@
             <img src= "{{ recipe['image'] }}" alt="Italian Trulli">
             <a href="{{recipe['sourceUrl']}}" target="_blank">{{recipe['title']}}</a>
             Price: ${{(recipe['pricePerServing'] * recipe['servings']/100) |round(2)}} for {{recipe['servings']}} servings
+            <img src= "{{ recipe['nutrition'] }}" alt="Italian Trulli">
         </h1>
     {% endfor %}
 

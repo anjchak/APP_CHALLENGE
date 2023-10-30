@@ -94,9 +94,9 @@ def find_recipes(query, diet, intolerances, number):
         return request.json()
     return "mega fail"
 
-def get_recipe_summary(id):
+def return_image(id):
     spoonacular_key = "97c986fad9454d9198188fa867964a6f"
-    request = requests.get(f"https://api.spoonacular.com/recipes/{id}/summary?apiKey={spoonacular_key}")
-    return request.json()['summary']
+    return f"https://api.spoonacular.com/recipes/{id}/nutritionLabel.png?apiKey={spoonacular_key}"
 
-print(get_recipe_information(716429)["summary"])
+recipe_data = find_recipes('cookie', 'vegitarian', 'lactose', '5')
+print(return_image(641166))
