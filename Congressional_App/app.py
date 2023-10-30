@@ -27,7 +27,7 @@ def index():
 
 #RECIPES CODE
 def find_recipes(query, diet, intolerances, number):
-    spoonacular_key = "97c986fad9454d9198188fa867964a6f"
+    spoonacular_key = "ae59d5f764644a6eb6353d6186327fef"
     options = "query=" + query + "&diet=" + diet + "&intolerances=" + intolerances + "&number=" + number + "&addRecipeInfomration=true&addRecipeNutrition=true" +"&apiKey=" + spoonacular_key
     request = requests.get(f"https://api.spoonacular.com/recipes/complexSearch?{options}")
     if request.status_code != 204:
@@ -35,7 +35,7 @@ def find_recipes(query, diet, intolerances, number):
     return "mega fail"
 
 def return_image(id):
-    spoonacular_key = "97c986fad9454d9198188fa867964a6f"
+    spoonacular_key = "ae59d5f764644a6eb6353d6186327fef"
     return f"https://api.spoonacular.com/recipes/{id}/nutritionLabel.png?apiKey={spoonacular_key}"
 
 @app.route("/recipe_query", methods=["GET", "POST"])
@@ -51,6 +51,14 @@ def recipe_query():
             for recipe in recipe_data['results']:
                 recipe.update({'nutrition': return_image(recipe['id'])})
             return render_template("recipes.html", recipes = recipe_data['results'])
+
+@app.route("/recipe_info", methods=["GET"])
+def recipe_info():
+        spoonacular_key = "97c986fad9454d9198188fa867964a6f"
+        if(request.method == "GET"):
+            id = request.args.get('id')
+            recipe_info = requests.get(f"https://api.spoonacular.com/recipes/{id}/information&apiKey={spoonacular_key}").json()
+            return render_template("recipe_info.html", recipe = recipe_info)
 
 #LOCATION CODE
 def create_map(locationx, locationy, location, stores):
@@ -94,26 +102,6 @@ def find_grocery_stores(parameters):
     # returns information in a tuple
     return lst
 
-def find_distance(user_location, destination):
-    # user_location and destination can be address or coordinates
-    r = requests.get(f"http://dev.virtualearth.net/REST/v1/Routes?wayPoint.1={user_location}&wayPoint.2={destination}&key={BingMapsKey}&distanceUnit=mi")
-    route = r.json()
-    travelDistance=0
-    travelDuration=0
-    if len(route['resourceSets']) != 0:
-        for leg in route['resourceSets'][0]['resources'][0]['routeLegs'][0]['itineraryItems']:
-            travelDistance += (leg['travelDistance'])
-            travelDuration += (leg['travelDuration'])
-        return round(travelDistance, 2), travelDuration
-    else:
-        return -1, -1
-
-
-def get_map(user_location, destination):
-    # user_location and destination can be address or coordinates
-    r = requests.get(f"https://dev.virtualearth.net/REST/v1/Imagery/Map/imagerySet/centerPoint/zoomLevel/Routes/travelMode?waypoint.1={user_location}&waypoint.2={destination}&format={format}&key={BingMapsKey}")
-    print(r)
-
 @app.route("/location_query", methods=["GET", "POST"])
 def location_query():
     """Show list of nearby grocery stores!"""
@@ -121,10 +109,11 @@ def location_query():
         return render_template("location_query.html")
     elif (request.method == "POST"):
         location = request.form.get("location")
-        longitude, latitude = get_coordinates(location)
-        stores = find_grocery_stores(f"{longitude}, {latitude}, 5000")
-        map = create_map(longitude, latitude, location, stores)
+        latitude, longitude = get_coordinates(location)
+        stores = find_grocery_stores(f"{latitude}, {longitude}, 5000")
+        map = create_map(latitude, longitude, location, stores)
         if(len(stores) == 0):
             return render_template("location_not_found.html")
+        
         return render_template("stores.html", stores = stores, map = map, location = location)
 

@@ -2,7 +2,7 @@ import json
 
 import requests
 
-# BingMapsKey = "AhkZGTzNUxseN5Tb-IxxOzQZ2k2IkXksXBua-LbD0FO_L-vXwg4yshTifpr0BF9H"
+BingMapsKey = "AhkZGTzNUxseN5Tb-IxxOzQZ2k2IkXksXBua-LbD0FO_L-vXwg4yshTifpr0BF9H"
 
 
 # def find_grocery_stores(parameters):
@@ -56,16 +56,25 @@ import requests
 #     print(r)
 
 
-# def get_coordinates(location):
-#     BingMapsKey = "AhkZGTzNUxseN5Tb-IxxOzQZ2k2IkXksXBua-LbD0FO_L-vXwg4yshTifpr0BF9H"
-#     r = requests.get(
-#         f"http://dev.virtualearth.net/REST/v1/Locations/{location}?includeNeighborhood=1&maxResults=1&key={BingMapsKey}")
+def get_coordinates(location):
+    BingMapsKey = "AhkZGTzNUxseN5Tb-IxxOzQZ2k2IkXksXBua-LbD0FO_L-vXwg4yshTifpr0BF9H"
+    r = requests.get(
+        f"http://dev.virtualearth.net/REST/v1/Locations/{location}?includeNeighborhood=1&maxResults=1&key={BingMapsKey}")
 
-#     coordinates = r.json()
-#     xcoordinate = coordinates['resourceSets'][0]['resources'][0]['point']['coordinates'][0]
-#     ycoordinate = coordinates['resourceSets'][0]['resources'][0]['point']['coordinates'][1]
-#     return xcoordinate, ycoordinate
+    coordinates = r.json()
+    xcoordinate = coordinates['resourceSets'][0]['resources'][0]['point']['coordinates'][0]
+    ycoordinate = coordinates['resourceSets'][0]['resources'][0]['point']['coordinates'][1]
+    return xcoordinate, ycoordinate
 
+def get_bird_eye(location):
+    longitude, latitude = get_coordinates(location)
+    print(longitude)
+    BingMapsKey = "AhkZGTzNUxseN5Tb-IxxOzQZ2k2IkXksXBua-LbD0FO_L-vXwg4yshTifpr0BF9H"
+    r = f"https://dev.virtualearth.net/REST/V1/Imagery/Map/Birdseye/{longitude},{latitude}/20?dir=270&ms=900,700&key={BingMapsKey}"
+    return r
+
+print(get_coordinates("tower Hill school"))
+print(get_bird_eye("jansons market"))
 
 # xcoordinate, ycoordinate = get_coordinates("Tower Hill School")
 # print(xcoordinate)

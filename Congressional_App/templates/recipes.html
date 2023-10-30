@@ -7,12 +7,12 @@
 {% block main %}
     <h1>Recommended Recipes</h1>
     {% for recipe in recipes %}
-        <h1>
+        <h1 style="text-align:left">
             <img src= "{{ recipe['image'] }}" alt="Italian Trulli">
-            <a href="{{recipe['sourceUrl']}}" target="_blank">{{recipe['title']}}</a>
+            <a href="/recipe_info?id={{recipe['id']}}" target="_blank">{{recipe['title']}}</a>
             Price: ${{(recipe['pricePerServing'] * recipe['servings']/100) |round(2)}} for {{recipe['servings']}} servings
-            <img src= "{{ recipe['nutrition'] }}" alt="Italian Trulli">
+            <img src= "{{ recipe['nutrition'] }}" alt="">
         </h1>
     {% endfor %}
-
+    
 {% endblock %}

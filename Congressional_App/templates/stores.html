@@ -6,10 +6,10 @@
 
 {% block main %}
     <h1>Stores Near {{ location }}</h1>
+    <img src= "{{ map }}" alt="Italian Trulli">
     {% for store in stores %}
         <h3> {{ store[0] }}</h3>
         <h2>{{ store[1] }}</h2>
     {% endfor %}
-    <img src= "{{ map }}" alt="Italian Trulli">
 
 {% endblock %}
