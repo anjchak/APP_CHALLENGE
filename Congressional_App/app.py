@@ -79,7 +79,7 @@ def mealplan():
         mealplan = generate_meal_plan(time, calories, diet, intolerance)
         for meal in mealplan['meals']:
             meal.update({'link': (f"/mealplan?id={meal['id']}")})
-        return render_template("meal_plan.html", mealplan = mealplan, time = time, intolerance = intolerance, diet = diet, href = mealplan[])
+        return render_template("meal_plan.html", mealplan = mealplan, time = time, intolerance = intolerance, diet = diet)
         
 
 
