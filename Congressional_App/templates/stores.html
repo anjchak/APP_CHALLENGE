@@ -5,11 +5,23 @@
 {% endblock %}
 
 {% block main %}
-    <h1>Stores Near {{ location }}</h1>
+<body style="background-color: beige;">
+    <h1>Stores Near {{ location.upper() }}</h1>
+    <div >
     <img src= "{{ map }}" alt="Italian Trulli">
-    {% for store in stores %}
-        <h3> {{ store[0] }}</h3>
-        <h2>{{ store[1] }}</h2>
-    {% endfor %}
+    </div>
+    
+    <div class = "row">
+            {% for store in stores %}
+            <div class="column2">
+                <ul5>
+                    <h3> {{ store[0] }}</h3>
+                    <h2>{{ store[1] }}</h2>
+                </ul5>
+            </div>
+            {% endfor %}
+    </div>
+</body>
+   
 
 {% endblock %}

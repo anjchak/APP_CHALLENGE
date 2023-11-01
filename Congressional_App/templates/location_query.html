@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 
 {% block title %}
-    Shopping Locations
+    Nearby Stores and Locations
 
 {% endblock %}
 
@@ -12,12 +12,20 @@
 <script src ="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.7.14/js/bootstrap-datetimepicker.min.js"></script>
 <link rel ="stylesheet" href ="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
 <link rel ="stylesheet" href ="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.7.14/css/bootstrap-datetimepicker.min.css">
-
-    <h1>Search</h1>
-        <form name = "location_search" action= "/location_query" method = "post" onsubmit="return validateForm()">
+    <ul3>
+        <h1 style="position: absolute; top: 200px; right: 650px; color: white">Looking for Stores?</h1>
+        <form class = "searchbar" name = "location_search" action= "/location_query" method = "post" onsubmit="return validateForm()">
             <input autocomplete="off" autofocus name="location" placeholder = "Where do you live?" type="text" class = "SearchBar">
-                <button type = "submit">Search</button>
+                <button type = "submit" class="button">Search</button>
+                <!--Ask bsoist if i'm doing this correct: want to make a js popup if search is null-->
+                <script>
+                    if (location_query == null) {
+                        window.alert("Please enter a location!");
+                    }
+                </script>
         </form>
+    </ul3>
+    
 </body>
 
 

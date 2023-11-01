@@ -1,11 +1,12 @@
 {% extends "layout.html" %}
 
 {% block title %}
-    Shopping Locations
-
+    Recipe Information
 {% endblock %}
 
 {% block main %}
-    {{recipe}}
-
+    <h1>{{recipe['summary']  | safe }}</h1>
+    {% for ingredient in recipe['extendedIngredients'] %}
+        <h2>{{ingredient['original']}}</h2>
+    {% endfor %}
 {% endblock %}

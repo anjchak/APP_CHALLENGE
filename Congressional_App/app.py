@@ -28,7 +28,7 @@ def index():
 #RECIPES CODE
 def find_recipes(query, diet, intolerances, number):
     spoonacular_key = "ae59d5f764644a6eb6353d6186327fef"
-    options = "query=" + query + "&diet=" + diet + "&intolerances=" + intolerances + "&number=" + number + "&addRecipeInfomration=true&addRecipeNutrition=true" +"&apiKey=" + spoonacular_key
+    options = (f"query={query}&diet={diet}&intolerances={intolerances}&number={number}&addRecipeInfomration=true&addRecipeNutrition=true&apiKey={spoonacular_key}")
     request = requests.get(f"https://api.spoonacular.com/recipes/complexSearch?{options}")
     if request.status_code != 204:
         return request.json()
@@ -50,15 +50,36 @@ def recipe_query():
             recipe_data = find_recipes(query, diet, intolerance, number)
             for recipe in recipe_data['results']:
                 recipe.update({'nutrition': return_image(recipe['id'])})
+                recipe.update({'link': (f"/recipe_info?id={recipe['id']}")})
             return render_template("recipes.html", recipes = recipe_data['results'])
 
 @app.route("/recipe_info", methods=["GET"])
 def recipe_info():
-        spoonacular_key = "97c986fad9454d9198188fa867964a6f"
+        spoonacular_key = "ae59d5f764644a6eb6353d6186327fef"
         if(request.method == "GET"):
             id = request.args.get('id')
-            recipe_info = requests.get(f"https://api.spoonacular.com/recipes/{id}/information&apiKey={spoonacular_key}").json()
+            recipe_info = requests.get(f"https://api.spoonacular.com/recipes/{id}/information?apiKey={spoonacular_key}").json()
             return render_template("recipe_info.html", recipe = recipe_info)
+
+def generate_meal_plan(timeframe, targetCalories, diet, intolerance):
+    spoonacular_key = "ae59d5f764644a6eb6353d6186327fef"
+    request = requests.get(f"https://api.spoonacular.com/mealplanner/generate?timeFrame={timeframe}&targetCalories={targetCalories}&diet={diet}&exclude={intolerance}&apiKey={spoonacular_key}")
+    return request.json()
+# timeFrame={timeframe}&targetCalories={targetCalories}&diet={diet}&exclude={intolerance}
+
+@app.route("/mealplan", methods=["GET", "POST"])
+def mealplan():
+    if(request.method == "GET"):
+        return render_template("meal_plan_generator.html")
+    elif (request.method == "POST"):
+        calories = request.form.get("calories")
+        diet = request.form.get("selectDiet")
+        intolerance = request.form.get("selectIntolerance")
+        time = request.form.get("selectTime")
+        mealplan = generate_meal_plan(time, calories, diet, intolerance)
+        return render_template("meal_plan.html", mealplan = mealplan, time = time, intolerance = intolerance, diet = diet)
+        
+
 
 #LOCATION CODE
 def create_map(locationx, locationy, location, stores):
@@ -86,7 +107,7 @@ def find_grocery_stores(parameters):
     BingMapsKey = "AhkZGTzNUxseN5Tb-IxxOzQZ2k2IkXksXBua-LbD0FO_L-vXwg4yshTifpr0BF9H"
     type = "Grocers"
     r = requests.get(
-        f"https://dev.virtualearth.net/REST/v1/LocalSearch/?type=Supermarkets&userCircularMapView={parameters}&key={BingMapsKey}")
+        f"https://dev.virtualearth.net/REST/v1/LocalSearch/?maxResults=8&type=Supermarkets&userCircularMapView={parameters}&key={BingMapsKey}")
 
     stores = r.json()
     lst = []

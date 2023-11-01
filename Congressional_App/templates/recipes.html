@@ -1,18 +1,29 @@
 {% extends "layout.html" %}
 
 {% block title %}
-    Recipes
+    Recipe Results
 {% endblock %}
 
 {% block main %}
-    <h1>Recommended Recipes</h1>
+    <h1 style = "font-size: 100px;">Recommended Recipes</h1>
+    <br><br><br>
+    <div class="row">
     {% for recipe in recipes %}
-        <h1 style="text-align:left">
-            <img src= "{{ recipe['image'] }}" alt="Italian Trulli">
-            <a href="/recipe_info?id={{recipe['id']}}" target="_blank">{{recipe['title']}}</a>
-            Price: ${{(recipe['pricePerServing'] * recipe['servings']/100) |round(2)}} for {{recipe['servings']}} servings
-            <img src= "{{ recipe['nutrition'] }}" alt="">
-        </h1>
+            <div class="column">
+                <ul4>
+                    <img style="padding-left: 10px;" src= "{{ recipe['nutrition'] }}" alt="">
+                    <h1>
+                        <ul5><a style="color: white; padding: 10px;" href="{{recipe['link']}}" target="_blank">{{recipe['title']}}</a></ul5>
+                        <a style="padding: 10px;" href="{{recipe['link']}}" target="_blank"><img id="myImg" src="{{ recipe['image'] }}" alt="Italian Trulli"></a>
+                        ${{(recipe['pricePerServing'] * recipe['servings']/100) |round(2)}} for {{recipe['servings']}} servings
+                    </h1>
+                </ul4>
+            </div>
+        <!-- <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br> -->
+
+
+
+
     {% endfor %}
     
 {% endblock %}

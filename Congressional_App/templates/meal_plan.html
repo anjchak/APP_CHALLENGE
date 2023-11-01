@@ -1,0 +1,60 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    MealPlan
+
+{% endblock %}
+
+{% block main %}
+    {% if time == 'day' or time == 'None'%}
+    <h1 style="font-size: 100px;">Try this Today</h1>    
+        {% for meal in mealplan['meals'] %}
+            <h3> {{ meal['title'] }}</h3>
+        {% endfor %}
+    {% endif %}
+    
+    {% if time == 'week'%}
+        <h1 style="font-size: 100px;">Monday</h1>    
+        {% for meal in mealplan['week']['monday']['meals'] %}
+            <h1>
+                {{meal['title']}}
+            </h1>
+        {% endfor %}
+        <h1 style="font-size: 100px;">Tuesday</h1>    
+        {% for meal in mealplan['week']['tuesday']['meals'] %}
+            <h1>
+                {{meal['title']}}
+            </h1>
+        {% endfor %}
+        <h1 style="font-size: 100px;">Wednesday</h1>    
+        {% for meal in mealplan['week']['wednesday']['meals'] %}
+            <h1>
+                {{meal['title']}}
+            </h1>
+        {% endfor %}
+        <h1 style="font-size: 100px;">Thursday</h1>    
+        {% for meal in mealplan['week']['thursday']['meals'] %}
+            <h1>
+                {{meal['title']}}
+            </h1>
+        {% endfor %}
+        <h1 style="font-size: 100px;">Friday</h1>    
+        {% for meal in mealplan['week']['friday']['meals'] %}
+            <h1>
+                {{meal['title']}}
+            </h1>
+        {% endfor %}
+        <h1 style="font-size: 100px;">Saturday</h1>    
+        {% for meal in mealplan['week']['saturday']['meals'] %}
+            <h1>
+                {{meal['title']}}
+            </h1>
+        {% endfor %}
+        <h1 style="font-size: 100px;">Sunday</h1>    
+        {% for meal in mealplan['week']['sunday']['meals'] %}
+            <h1>
+                {{meal['title']}}
+            </h1>
+        {% endfor %}
+    {% endif %}
+{% endblock %}

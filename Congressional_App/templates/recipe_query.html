@@ -5,42 +5,53 @@
 {% endblock %}
 
 {% block main %}
-    <body class = 'secondary_bg'>
-        <h1>Search</h1>
-        <form name = "recipe search" action = "/recipe_query" method = "POST" onsubmit="return validateForm()">
-
-            <input autocomplete="off" autofocus name="query" placeholder = "What food do you want?" type="text" class = "SearchBar">
-            <select name="selectDiet" multiplesize="12"> <!-- note the name -->
-                <option value="None">Select Diet</option>
-                <option value="gluten_free">Gluten Free</option>
-                <option value="ketogenic">Ketogenic</option>
-                <option value="vegetarian">Vegetarian</option>
-                <option value="laco_vegetarian">Lacto-Vegetarian</option>
-                <option value="ovo_vegetarian">Ovo-Vegetarian</option>
-                <option value="vegan">Vegan</option>
-                <option value="pescetarian">Pescetarian</option>
-                <option value="paleo">Paleo</option>
-                <option value="primal">Primal</option>
-                <option value="low_FODMAP">Low FODMAP</option>
-                <option value="whole30">Whole30</option>
-            </select>
-            <select name="selectIntolerance" multiplesize="13"> <!-- note the name -->
-                <option value="None">Select Intolerance</option>
-                <option value="dairy">Dairy</option>
-                <option value="egg">Egg</option>
-                <option value="gluten">Gluten</option>
-                <option value="grain">Grain</option>
-                <option value="peanut">Peanut</option>
-                <option value="seafood">Seafood</option>
-                <option value="sesame">Sesame</option>
-                <option value="shellfish">Shellfish</option>
-                <option value="soy">Soy</option>
-                <option value="sulfite">Sulfite</option>
-                <option value="tree_nut">Tree Nut</option>
-                <option value="wheat">Wheat</option>
-            </select>
-            <input autocomplete="off" autofocus name="results" placeholder = "How many results would you like?" type="text" class = "SearchBar">
-                <button type = "submit">Search</button>
-        </form>
+    <body class = "secondary_bg">
+        <ul>
+            <font color="white">
+                <h1>Search recipes</h1>
+                    <form name = "recipe search" action= "/recipe_query" method = "POST" onsubmit="return validateForm()">
+                        <form name = "recipe search" action = "/recipe_query" method = "POST" onsubmit="return validateForm()">
+                            <center><input class = "searchbar" autocomplete="off" autofocus name="query" placeholder = "What food do you want?" type="text" class = "SearchBar center"></center>
+                            <center><input class = "searchbar" autocomplete="off" autofocus name="results" placeholder = "How many results would you like?" type="text" class = "SearchBar center"></center>
+                                <script>
+                                    if (results == null){
+                                        results = 2;
+                                    }
+                                </script>
+                            <select name="selectDiet" multiplesize="12" class = "dropdowns"> <!-- note the name -->
+                                <option value="None">Select Diet</option>
+                                <option value="gluten_free">Gluten Free</option>
+                                <option value="ketogenic">Ketogenic</option>
+                                <option value="vegetarian">Vegetarian</option>
+                                <option value="laco_vegetarian">Lacto-Vegetarian</option>
+                                <option value="ovo_vegetarian">Ovo-Vegetarian</option>
+                                <option value="vegan">Vegan</option>
+                                <option value="pescetarian">Pescetarian</option>
+                                <option value="paleo">Paleo</option>
+                                <option value="primal">Primal</option>
+                                <option value="low_FODMAP">Low FODMAP</option>
+                                <option value="whole30">Whole30</option>
+                            </select>
+                            <select name="selectIntolerance" multiplesize="13" class = "dropdowns"> <!-- note the name -->
+                                <option value="None">Select Intolerance</option>
+                                <option value="dairy">Dairy</option>
+                                <option value="egg">Egg</option>
+                                <option value="gluten">Gluten</option>
+                                <option value="grain">Grain</option>
+                                <option value="peanut">Peanut</option>
+                                <option value="seafood">Seafood</option>
+                                <option value="sesame">Sesame</option>
+                                <option value="shellfish">Shellfish</option>
+                                <option value="soy">Soy</option>
+                                <option value="sulfite">Sulfite</option>
+                                <option value="tree_nut">Tree Nut</option>
+                                <option value="wheat">Wheat</option>
+                            </select>
+                            <div> 
+                                <button type = "submit" class="button">Search</button>
+                              </div>
+                        </form>
+                </font>        
+        </ul>
     </body>
 {% endblock %}
